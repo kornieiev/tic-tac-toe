@@ -45,7 +45,7 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
         }
       }
     }, 200);
-  }, [gameBoard]);
+  }, [gameBoard, onSelectSquare]);
 
   return (
     <ol id='game-board'>

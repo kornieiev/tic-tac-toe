@@ -14,15 +14,15 @@ function App() {
   function toggleActivePlayer(rowIndex, colIndex) {
     if (!rowIndex && !colIndex) {
       setGameTurns([]);
-      return;
     }
 
     setActivePlayer((curActivePlayer) => {
       return curActivePlayer === "X" ? "O" : "X";
     });
+
     setGameTurns((prev) => [
-      ...prev,
       [activePlayer, rowIndex + 1, colIndex + 1],
+      ...prev,
     ]);
   }
 
