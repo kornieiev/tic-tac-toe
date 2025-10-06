@@ -25,7 +25,7 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
       return updatedGameBoard;
     });
 
-    onSelectSquare();
+    onSelectSquare(rowIndex, colIndex);
   }
 
   useEffect(() => {
@@ -35,9 +35,12 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
         console.log("WINNER!!!");
         if (winner === "draw") {
           setGameBoard(initialGameBoard);
+          onSelectSquare();
           alert("Ничья!");
         } else {
           setGameBoard(initialGameBoard);
+          onSelectSquare();
+
           alert(`Победитель: ${winner}`);
         }
       }

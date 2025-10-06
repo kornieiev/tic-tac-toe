@@ -5,16 +5,25 @@ import "./App.css";
 import Header from "./components/Header";
 import PlayerInfo from "./components/PlayerInfo";
 import GameBoard from "./components/GameBoard";
+import Log from "./components/Log";
 
 function App() {
   const [activePlayer, setActivePlayer] = useState("X");
-  console.log("2activePlayer", activePlayer);
+  const [gameTurns, setGameTurns] = useState([]);
 
-  function toggleActivePlayer() {
+  function toggleActivePlayer(rowIndex, colIndex) {
+    if (!rowIndex && !colIndex) {
+      setGameTurns([]);
+      return;
+    }
+
     setActivePlayer((curActivePlayer) => {
-      console.log("1curActivePlayer", curActivePlayer);
       return curActivePlayer === "X" ? "O" : "X";
     });
+    setGameTurns((prev) => [
+      ...prev,
+      [activePlayer, rowIndex + 1, colIndex + 1],
+    ]);
   }
 
   return (
@@ -30,14 +39,23 @@ function App() {
       <Header />
       <main>
         <div id='game-container'>
-          <ol id='players'>
-            <PlayerInfo playerName='Player 1' playerSymbol='X' />
-            <PlayerInfo playerName='Player 2' playerSymbol='O' />
+          <ol id='players' className='highlight-player'>
+            <PlayerInfo
+              playerName='Player 1'
+              playerSymbol='X'
+              isActive={activePlayer === "X"}
+            />
+            <PlayerInfo
+              playerName='Player 2'
+              playerSymbol='O'
+              isActive={activePlayer === "O"}
+            />
           </ol>
           <GameBoard
             onSelectSquare={toggleActivePlayer}
             activePlayer={activePlayer}
           />
+          <Log gameTurns={gameTurns} />
         </div>
       </main>
     </>
