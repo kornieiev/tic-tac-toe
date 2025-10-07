@@ -8,6 +8,7 @@ export default function ModalComponent({
   winner,
   restartGame,
 }) {
+  const isDraw = winner.includes("draw");
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -42,7 +43,7 @@ export default function ModalComponent({
           maxHeight: "500px",
         }}
       >
-        {winner}
+        {isDraw ? "It's a Draw! 😬" : `${winner.toUpperCase()} WIN! 🏆`}
       </h2>
       <p
         style={{

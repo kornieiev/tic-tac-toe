@@ -2,14 +2,26 @@ import { useState } from "react";
 import checkWinner from "../helpers/checkWinner";
 import ModalComponent from "./Modal";
 
-const initialGameBoard = [
+const INITIAL_GAME_BOARD = [
   [null, null, null],
   [null, null, null],
   [null, null, null],
 ];
 
-export default function GameBoard({ onSelectSquare, activePlayer }) {
-  const [gameBoard, setGameBoard] = useState(initialGameBoard);
+const restartButton = {
+  border: "2px solid #c3ba7828",
+  borderRadius: "10px",
+  padding: "0.5rem 1rem",
+  background: "none",
+  color: "#c3ba78",
+  fontSize: "1rem",
+  cursor: "pointer",
+  transition: "color 0.2s",
+  textAlign: "center",
+};
+
+export default function GameBoard({ onSelectSquare, activePlayer, players }) {
+  const [gameBoard, setGameBoard] = useState(INITIAL_GAME_BOARD);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [winner, setWinner] = useState(null);
 
@@ -37,7 +49,7 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
             return;
           } else {
             setModalIsOpen(true);
-            setWinner(`Winner: ${winner}`);
+            setWinner(players[winner]);
           }
         }, 100);
       }
@@ -50,7 +62,7 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
 
   function restartGame() {
     setWinner(null);
-    setGameBoard(initialGameBoard);
+    setGameBoard(INITIAL_GAME_BOARD);
     onSelectSquare();
   }
 
@@ -78,20 +90,7 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
         })}
       </ol>
       {winner && (
-        <button
-          style={{
-            border: "2px solid #c3ba7828",
-            borderRadius: "10px",
-            padding: "0.5rem 1rem",
-            background: "none",
-            color: "#c3ba78",
-            fontSize: "1rem",
-            cursor: "pointer",
-            transition: "color 0.2s",
-            textAlign: "center",
-          }}
-          onClick={restartGame}
-        >
+        <button style={restartButton} onClick={restartGame}>
           RESTART GAME
         </button>
       )}

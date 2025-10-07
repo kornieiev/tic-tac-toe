@@ -1,11 +1,25 @@
 import { useState } from "react";
 
-export default function PlayerInfo({ playerName, playerSymbol, isActive }) {
+export default function PlayerInfo({
+  playerName,
+  playerSymbol,
+  isActive,
+  setPlayers,
+}) {
   const [name, setName] = useState(playerName);
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEditClick() {
-    setIsEditing((prev) => !prev);
+    setIsEditing((prev) => {
+      // Если переходим из режима редактирования в обычный (сохраняем)
+      if (prev) {
+        setPlayers((prevPlayers) => ({ 
+          ...prevPlayers, 
+          [playerSymbol]: name 
+        }));
+      }
+      return !prev;
+    });
   }
 
   return (
@@ -17,9 +31,7 @@ export default function PlayerInfo({ playerName, playerSymbol, isActive }) {
             required
             placeholder={name}
             value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
+            onChange={(e) => setName(e.target.value)}
           />
         ) : (
           <span className='player-name'>{name}</span>
