@@ -1,21 +1,11 @@
-// import { useState } from "react";
-
 export default function Log({ gameTurns }) {
-  //   const [log, setLog] = useState([]);
-
-  console.log("gameTurns====", gameTurns);
   return (
     <ol id='log'>
-      {gameTurns.map((turn, i) => {
-        if (!turn[1]) {
-          return;
-        }
-        return (
-          <li key={i}>
-            Player: {turn[0]} - Row: {turn[1]} - Col: {turn[2]}
-          </li>
-        );
-      })}
+      {gameTurns.map((turn, i) => (
+        <li key={i}>
+          Player: {turn.player} - Row: {turn.row} - Col: {turn.col}
+        </li>
+      ))}
     </ol>
   );
 }

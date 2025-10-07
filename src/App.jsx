@@ -12,18 +12,20 @@ function App() {
   const [gameTurns, setGameTurns] = useState([]);
 
   function toggleActivePlayer(rowIndex, colIndex) {
-    if (!rowIndex && !colIndex) {
+    if (rowIndex === undefined && colIndex === undefined) {
       setGameTurns([]);
+      setActivePlayer("X");
+      return;
     }
+
+    setGameTurns((prev) => [
+      { player: activePlayer, row: rowIndex + 1, col: colIndex + 1 },
+      ...prev,
+    ]);
 
     setActivePlayer((curActivePlayer) => {
       return curActivePlayer === "X" ? "O" : "X";
     });
-
-    setGameTurns((prev) => [
-      [activePlayer, rowIndex + 1, colIndex + 1],
-      ...prev,
-    ]);
   }
 
   return (
@@ -55,8 +57,8 @@ function App() {
             onSelectSquare={toggleActivePlayer}
             activePlayer={activePlayer}
           />
-          <Log gameTurns={gameTurns} />
         </div>
+        <Log gameTurns={gameTurns} />
       </main>
     </>
   );

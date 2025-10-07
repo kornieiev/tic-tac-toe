@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import checkWinner from "../helpers/checkWinner";
+import ModalComponent from "./Modal";
 
 const initialGameBoard = [
   [null, null, null],
@@ -9,6 +10,9 @@ const initialGameBoard = [
 
 export default function GameBoard({ onSelectSquare, activePlayer }) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [winner, setWinner] = useState(null);
+  console.log("winner", winner);
 
   function handleSelectField(rowIndex, colIndex) {
     if (gameBoard[rowIndex][colIndex]) {
@@ -22,52 +26,63 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
 
       updatedGameBoard[rowIndex][colIndex] = activePlayer;
 
+      const winner = checkWinner(updatedGameBoard);
+      if (winner) {
+        setTimeout(() => {
+          if (winner === "draw") {
+            setWinner("Try again!");
+            setModalIsOpen(true);
+            return;
+          } else {
+            setModalIsOpen(true);
+            setWinner(`Winner: ${winner}`);
+          }
+        }, 100);
+      }
+
       return updatedGameBoard;
     });
 
     onSelectSquare(rowIndex, colIndex);
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      const winner = checkWinner(gameBoard);
-      if (winner) {
-        console.log("WINNER!!!");
-        if (winner === "draw") {
-          setGameBoard(initialGameBoard);
-          onSelectSquare();
-          alert("Ничья!");
-        } else {
-          setGameBoard(initialGameBoard);
-          onSelectSquare();
-
-          alert(`Победитель: ${winner}`);
-        }
-      }
-    }, 200);
-  }, [gameBoard, onSelectSquare]);
+  function restartGame() {
+    setWinner(null);
+    setGameBoard(initialGameBoard);
+    onSelectSquare();
+  }
 
   return (
-    <ol id='game-board'>
-      {gameBoard.map((row, rowIndex) => {
-        return (
-          <li key={rowIndex}>
-            <ol>
-              {row.map((col, colIndex) => (
-                <li key={colIndex}>
-                  <button
-                    onClick={() => {
-                      handleSelectField(rowIndex, colIndex);
-                    }}
-                  >
-                    {col}
-                  </button>
-                </li>
-              ))}
-            </ol>
-          </li>
-        );
-      })}
-    </ol>
+    <>
+      <ol id='game-board'>
+        {gameBoard.map((row, rowIndex) => {
+          return (
+            <li key={rowIndex}>
+              <ol>
+                {row.map((col, colIndex) => (
+                  <li key={colIndex}>
+                    <button
+                      onClick={() => {
+                        handleSelectField(rowIndex, colIndex);
+                      }}
+                    >
+                      {col}
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            </li>
+          );
+        })}
+      </ol>
+      {winner && (
+        <ModalComponent
+          modalIsOpen={modalIsOpen}
+          setModalIsOpen={setModalIsOpen}
+          winner={winner}
+          restartGame={restartGame}
+        ></ModalComponent>
+      )}
+    </>
   );
 }
