@@ -25,6 +25,7 @@ export default function ModalComponent({
           margin: "auto",
           borderRadius: "12px",
           padding: "20px",
+          height: "fit-content",
         },
       }}
     >
@@ -35,6 +36,7 @@ export default function ModalComponent({
           marginBottom: "2rem",
           color: "#374151",
           textAlign: "center",
+          maxHeight: "500px",
         }}
       >
         {winner}

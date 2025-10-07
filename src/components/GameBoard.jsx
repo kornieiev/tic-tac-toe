@@ -18,6 +18,9 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
     if (gameBoard[rowIndex][colIndex]) {
       return;
     }
+    if (winner) {
+      return;
+    }
 
     setGameBoard((prevGameBoard) => {
       const updatedGameBoard = [
@@ -75,6 +78,24 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
           );
         })}
       </ol>
+      {winner && (
+        <button
+          style={{
+            border: "2px solid #c3ba7828",
+            borderRadius: "10px",
+            padding: "0.5rem 1rem",
+            background: "none",
+            color: "#c3ba78",
+            fontSize: "1rem",
+            cursor: "pointer",
+            transition: "color 0.2s",
+            textAlign: "center",
+          }}
+          onClick={restartGame}
+        >
+          RESTART GAME
+        </button>
+      )}
       {winner && (
         <ModalComponent
           modalIsOpen={modalIsOpen}
