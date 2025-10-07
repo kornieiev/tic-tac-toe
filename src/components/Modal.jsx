@@ -21,9 +21,12 @@ export default function ModalComponent({
           backgroundColor: "rgba(0, 0, 0, 0.6)",
         },
         content: {
+          backgroundColor: "rgba(0, 0, 0, 0.9)",
+
           maxWidth: "400px",
           margin: "auto",
           borderRadius: "12px",
+          border: "2px solid #f6ab5a",
           padding: "20px",
           height: "fit-content",
         },
@@ -31,10 +34,10 @@ export default function ModalComponent({
     >
       <h2
         style={{
-          fontSize: "1.25rem",
+          fontSize: "1.5rem",
           fontWeight: "700",
           marginBottom: "2rem",
-          color: "#374151",
+          color: "#7a8caaff",
           textAlign: "center",
           maxHeight: "500px",
         }}
@@ -45,7 +48,7 @@ export default function ModalComponent({
         style={{
           fontSize: "1rem",
           fontWeight: "300",
-          color: "#374151",
+          color: "#b0bbcdff",
           textAlign: "center",
           marginBottom: "3rem",
         }}
@@ -70,8 +73,9 @@ export default function ModalComponent({
             backgroundColor: "#374151",
             color: "#fff",
             borderRadius: "0.25rem",
-            border: "none",
             cursor: "pointer",
+            border: "none",
+            fontSize: "1rem",
           }}
         >
           Yes
@@ -87,6 +91,7 @@ export default function ModalComponent({
             borderRadius: "0.25rem",
             border: "1px solid #374151",
             cursor: "pointer",
+            fontSize: "1rem",
           }}
         >
           No

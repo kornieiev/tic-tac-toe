@@ -12,7 +12,6 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [winner, setWinner] = useState(null);
-  console.log("winner", winner);
 
   function handleSelectField(rowIndex, colIndex) {
     if (gameBoard[rowIndex][colIndex]) {
@@ -33,7 +32,7 @@ export default function GameBoard({ onSelectSquare, activePlayer }) {
       if (winner) {
         setTimeout(() => {
           if (winner === "draw") {
-            setWinner("Try again!");
+            setWinner("It's a draw! Try again!");
             setModalIsOpen(true);
             return;
           } else {
