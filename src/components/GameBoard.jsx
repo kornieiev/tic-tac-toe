@@ -18,6 +18,7 @@ const restartButton = {
   cursor: "pointer",
   transition: "color 0.2s",
   textAlign: "center",
+  margin: "auto",
 };
 
 export default function GameBoard({ onSelectSquare, activePlayer, players }) {

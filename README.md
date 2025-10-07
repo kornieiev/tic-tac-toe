@@ -2,6 +2,8 @@
 
 A modern, interactive Tic-Tac-Toe game built with React and Vite. Features player name editing, move history tracking, and a beautiful modal for game results.
 
+🌐 **[Play Live Demo](https://kornieiev.github.io/tic-tac-toe)** 🌐
+
 ![Tic-Tac-Toe Game](public/game-logo.png)
 
 ## ✨ Features
